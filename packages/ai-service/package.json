@@ -1,0 +1,41 @@
+{
+  "name": "@template/ai-service",
+  "version": "1.0.0",
+  "description": "Multi-provider AI integration module supporting OpenAI, Claude, Gemini, and Ollama",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "ai",
+    "openai",
+    "claude",
+    "anthropic",
+    "gemini",
+    "google",
+    "ollama",
+    "llm",
+    "chat",
+    "completion"
+  ],
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "dependencies": {
+    "openai": "^4.20.0",
+    "@anthropic-ai/sdk": "^0.9.0",
+    "@google/generative-ai": "^0.2.0",
+    "axios": "^1.6.0",
+    "eventemitter3": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
