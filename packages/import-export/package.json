@@ -1,0 +1,42 @@
+{
+  "name": "@template/import-export",
+  "version": "1.0.0",
+  "description": "Comprehensive import/export module with JSON, file picker, drag-drop, and URL support",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "electron",
+    "import",
+    "export", 
+    "json",
+    "pdf",
+    "html",
+    "docx",
+    "drag-drop",
+    "file-picker"
+  ],
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "dependencies": {
+    "html2pdf.js": "^0.10.0",
+    "jspdf": "^2.5.0",
+    "docx": "^8.0.0",
+    "file-saver": "^2.0.0",
+    "jszip": "^3.10.0",
+    "ajv": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
