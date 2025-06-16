@@ -389,7 +389,7 @@ export class DatabaseManager extends EventEmitter {
       }
 
       const timestamp = Date.now()
-      const backupFilename = filename || `backup_${timestamp}.db`
+      const backupFilename = filename || this.generateBackupFilename()
       const backupPath = join(backupDir, backupFilename)
 
       // Use SQLite backup API for atomic backup
@@ -408,6 +408,144 @@ export class DatabaseManager extends EventEmitter {
       // Clean up old backups
       await this.cleanupOldBackups()
 
+      return backupInfo
+
+    } catch (error) {
+      this.emit('event', { type: 'error', timestamp: Date.now(), error: error as Error })
+      throw error
+    }
+  }
+
+  /**
+   * Generate a backup filename with date-time stamp and auto-increment
+   */
+  private generateBackupFilename(): string {
+    const now = new Date()
+    const dateStr = now.toISOString().slice(0, 10) // YYYY-MM-DD
+    const timeStr = now.toTimeString().slice(0, 8).replace(/:/g, '-') // HH-MM-SS
+    
+    const baseName = `backup_${dateStr}_${timeStr}`
+    const backupDir = this.config.backup!.directory!
+    
+    // Check for existing files with same base name and increment
+    if (!existsSync(backupDir)) {
+      return `${baseName}.db`
+    }
+    
+    const existingFiles = readdirSync(backupDir)
+    const pattern = new RegExp(`^${baseName}(?:_(\d+))?\\.db$`)
+    
+    let maxIncrement = 0
+    for (const file of existingFiles) {
+      const match = file.match(pattern)
+      if (match) {
+        const increment = match[1] ? parseInt(match[1], 10) : 0
+        maxIncrement = Math.max(maxIncrement, increment)
+      }
+    }
+    
+    // If no existing file, use base name; otherwise increment
+    return maxIncrement === 0 
+      ? `${baseName}.db`
+      : `${baseName}_${maxIncrement + 1}.db`
+  }
+
+  /**
+   * Create a backup with custom naming strategy
+   */
+  async createNamedBackup(
+    nameStrategy: 'timestamp' | 'datetime' | 'increment' | 'custom',
+    customName?: string
+  ): Promise<BackupInfo> {
+    let filename: string
+
+    switch (nameStrategy) {
+      case 'timestamp':
+        filename = `backup_${Date.now()}.db`
+        break
+      case 'datetime':
+        filename = this.generateBackupFilename()
+        break
+      case 'increment':
+        filename = this.generateIncrementFilename()
+        break
+      case 'custom':
+        if (!customName) {
+          throw new Error('Custom name required for custom naming strategy')
+        }
+        filename = customName.endsWith('.db') ? customName : `${customName}.db`
+        break
+      default:
+        filename = this.generateBackupFilename()
+    }
+
+    return this.createBackup(filename)
+  }
+
+  /**
+   * Generate a simple incrementing filename (backup_001.db, backup_002.db, etc.)
+   */
+  private generateIncrementFilename(): string {
+    const backupDir = this.config.backup!.directory!
+    
+    if (!existsSync(backupDir)) {
+      return 'backup_001.db'
+    }
+    
+    const existingFiles = readdirSync(backupDir)
+    const pattern = /^backup_(\d+)\.db$/
+    
+    let maxNumber = 0
+    for (const file of existingFiles) {
+      const match = file.match(pattern)
+      if (match) {
+        const number = parseInt(match[1], 10)
+        maxNumber = Math.max(maxNumber, number)
+      }
+    }
+    
+    const nextNumber = (maxNumber + 1).toString().padStart(3, '0')
+    return `backup_${nextNumber}.db`
+  }
+
+  /**
+   * Create a backup before performing risky operations
+   */
+  async createSafetyBackup(operation: string): Promise<BackupInfo> {
+    const now = new Date()
+    const dateStr = now.toISOString().slice(0, 16).replace(/[T:]/g, '-') // YYYY-MM-DD-HH-MM
+    const filename = `safety_${operation}_${dateStr}.db`
+    
+    return this.createBackup(filename)
+  }
+
+  /**
+   * Create a backup to a specific location (useful for cloud sync)
+   */
+  async createBackupToPath(targetPath: string): Promise<BackupInfo> {
+    try {
+      this.ensureConnected()
+
+      // Ensure target directory exists
+      const targetDir = dirname(targetPath)
+      if (!existsSync(targetDir)) {
+        mkdirSync(targetDir, { recursive: true })
+      }
+
+      // Use SQLite backup API for atomic backup
+      this.db!.backup(targetPath)
+
+      const stat = statSync(targetPath)
+      const timestamp = Date.now()
+
+      const backupInfo: BackupInfo = {
+        filename: targetPath,
+        timestamp,
+        size: stat.size
+      }
+
+      this.emit('event', { type: 'backup', timestamp: Date.now(), data: backupInfo })
+      
       return backupInfo
 
     } catch (error) {
