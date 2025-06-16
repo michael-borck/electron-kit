@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@template/core": ["./packages/core/src"],
+      "@template/ai-service": ["./packages/ai-service/src"],
+      "@template/export": ["./packages/export/src"],
+      "@template/vector-search": ["./packages/vector-search/src"],
+      "@template/charts": ["./packages/charts/src"]
+    }
+  },
+  "include": [
+    "packages/*/src/**/*",
+    "templates/*/src/**/*",
+    "tools/*/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "out"
+  ]
+}

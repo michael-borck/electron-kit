@@ -1,0 +1,28 @@
+{
+  "name": "electron-template",
+  "version": "1.0.0",
+  "description": "Branded Electron app template system with modular architecture",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "templates/*",
+    "tools/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=packages/core",
+    "build": "npm run build --workspace=packages/core",
+    "build:all": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "format": "prettier --write .",
+    "clean": "rm -rf packages/*/dist templates/*/dist tools/*/dist node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

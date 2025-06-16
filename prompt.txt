@@ -1,0 +1,38 @@
+I'm building a branded Electron app template/theme system. I have multiple existing Electron apps that I want to analyze to extract common
+  patterns and create a reusable template.
+
+  CONTEXT:
+  - I want consistent branding across all my Electron apps
+  - Most apps have collapsible sidebars with main content areas
+  - I'm using Material-UI and want to create a centralized theme
+  - Goal is to create a template for new apps and retrofit existing ones
+  - I need github workflow to geterate builds for Windows, macOS, and Linux
+  - Common .gitignore file
+  - I want to ensure accessibility and good UX practices are followed
+  - I want to identify good ideas from one app that others are missing
+  - I want to ensure the template is flexible enough for future apps
+
+  TASK:
+  Please analyze my existing Electron apps to:
+  1. Identify common UI patterns (layouts, components, navigation)
+  2. Find reusable elements that should be in the template
+  3. Spot inconsistencies that the template should standardize
+  4. Recommend the optimal template structure
+  5. Suggest retrofitting strategy for existing apps
+  6. **Identify good ideas from one app that others are missing** - cross-pollinate features
+  7. **Recommend desktop UI/UX best practices** I should add to the template
+  8. **Suggest missing accessibility/UX features** like:
+     - Font size controls for users
+     - Typography consistency
+     - Keyboard shortcuts
+     - Theme switching (light/dark)
+     - Window state persistence
+     - Any other desktop-specific UX patterns
+
+  This covers cross-app feature discovery, best practices, and missing UX opportunities!
+
+  I'll provide a file with paths to all my Electron app directories. Please examine the codebases and give me comprehensive recommendations
+  for building the ideal branded template.
+
+  Ready to start the analysis when you are!
+
