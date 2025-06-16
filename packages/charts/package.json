@@ -1,0 +1,46 @@
+{
+  "name": "@template/charts",
+  "version": "1.0.0",
+  "description": "Comprehensive data visualization module with Chart.js, D3, and Recharts integration",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "charts",
+    "visualization",
+    "d3",
+    "chartjs",
+    "recharts",
+    "graphs",
+    "data-viz",
+    "react"
+  ],
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "react-chartjs-2": "^5.2.0",
+    "d3": "^7.8.0",
+    "d3-cloud": "^1.2.0",
+    "recharts": "^2.8.0",
+    "color": "^4.2.0",
+    "lodash": "^4.17.0"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.0",
+    "@types/d3-cloud": "^1.2.0",
+    "@types/color": "^3.0.0",
+    "@types/lodash": "^4.14.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
