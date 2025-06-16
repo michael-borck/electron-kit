@@ -28,6 +28,35 @@
     flex-direction: column;
   }
 
+  /* Compact mode adjustments */
+  .compact {
+    --spacing-scale: 0.75;
+  }
+
+  .compact .btn {
+    @apply py-1 px-2 text-xs;
+  }
+
+  .compact .input {
+    @apply h-8 py-1 text-sm;
+  }
+
+  /* High contrast mode */
+  .high-contrast {
+    --contrast-multiplier: 1.5;
+  }
+
+  .high-contrast .btn {
+    @apply border-2;
+  }
+
+  /* Reduce motion */
+  .reduce-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
