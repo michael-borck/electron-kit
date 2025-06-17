@@ -172,9 +172,25 @@ Your Electron app will launch with the selected modules integrated.
 ## Template Structure
 \`\`\`
 electron-template/
-├── packages/
-│   ├── core/
-│   └── settings/
+├── packages/               # Modular packages
+│   ├── core/              # Core Electron + React setup
+│   ├── settings/          # Universal settings system
+│   ├── ai/                # AI service integration
+│   ├── database/          # SQLite database module
+│   ├── vector-search/     # Vector search with LanceDB
+│   ├── charts/            # Data visualization
+│   ├── docs/              # Documentation system
+│   ├── notifications/     # Toast & system notifications
+│   ├── shortcuts/         # Keyboard shortcuts
+│   ├── updater/           # Auto-update system
+│   └── import-export/     # Data import/export
+├── apps/                  # Template combinations
+│   ├── basic/             # Minimal setup
+│   ├── ai-app/            # AI-focused application
+│   ├── data-app/          # Data analysis application
+│   └── full/              # All modules included
+├── tools/                 # Build and development tools
+└── docs/                  # Documentation
 \`\`\`
 
 ## Available Modules
@@ -183,10 +199,207 @@ electron-template/
 **Required for all applications**
 - Electron + React + TypeScript setup
 - Vite build system
+- Hot reload development
+- Cross-platform builds
 \`\`\`tsx
 import { App } from '@template/core'
+
+function MyApp() {
+  return <App>Your content here</App>
+}
 \`\`\`
-        `;
+#### @template/settings
+**Universal settings system**
+- Theme management (light/dark/system)
+- Window preferences
+- Accessibility options
+- Persistent storage
+\`\`\`tsx
+import { SettingsProvider, useSettings } from '@template/settings'
+
+function App() {
+  return (
+    <SettingsProvider>
+      <MyApp />
+    </SettingsProvider>
+  )
+}
+
+function MyComponent() {
+  const { theme, setTheme } = useSettings()
+  return (
+    <button onClick={() => setTheme('dark')}>
+      Switch to Dark Mode
+    </button>
+  )
+}
+\`\`\`
+
+## Building Your First App
+### Example: AI Chat Application
+\`\`\`tsx
+// src/App.tsx
+import React from 'react'
+import { 
+  SettingsProvider, 
+  AIProvider, 
+  NotificationProvider,
+  ShortcutProvider 
+} from '@template/core'
+import { ChatInterface } from './components/ChatInterface'
+import { Sidebar } from './components/Sidebar'
+
+function App() {
+  return (
+    <SettingsProvider>
+      <AIProvider config={{
+        providers: ['openai', 'claude'],
+        defaultProvider: 'openai'
+      }}>
+        <NotificationProvider>
+          <ShortcutProvider>
+            <div className="app-container">
+              <Sidebar />
+              <ChatInterface />
+            </div>
+          </ShortcutProvider>
+        </NotificationProvider>
+      </AIProvider>
+    </SettingsProvider>
+  )
+}
+
+export default App
+\`\`\`
+
+## Module Integration
+### Provider Setup
+Wrap your app with the required providers:
+\`\`\`tsx
+import React from 'react'
+import {
+  SettingsProvider,
+  AIProvider,
+  DatabaseProvider,
+  NotificationProvider
+} from '@template/core'
+
+function AppProviders({ children }) {
+  return (
+    <SettingsProvider>
+      <DatabaseProvider>
+        <AIProvider>
+          <NotificationProvider>
+            {children}
+          </NotificationProvider>
+        </AIProvider>
+      </DatabaseProvider>
+    </SettingsProvider>
+  )
+}
+\`\`\`
+
+## Configuration
+### Environment Variables
+Create a \`.env\` file:
+\`\`\`env
+# AI API Keys
+OPENAI_API_KEY=your_openai_key
+CLAUDE_API_KEY=your_claude_key
+GEMINI_API_KEY=your_gemini_key
+
+# Database
+DATABASE_PATH=./data/app.db
+ENABLE_DATABASE_BACKUPS=true
+
+# Updates
+UPDATE_SERVER_URL=https://your-update-server.com
+UPDATE_CHANNEL=stable
+
+# Development
+NODE_ENV=development
+DEBUG=true
+\`\`\`
+
+## Deployment
+### Building for Production
+\`\`\`bash
+# Build all packages
+npm run build
+
+# Build for specific platform
+npm run build:win
+npm run build:mac
+npm run build:linux
+
+# Build and publish
+npm run build:publish
+\`\`\`
+
+## Customization
+### Theming
+\`\`\`tsx
+// src/theme/index.ts
+export const theme = {
+  colors: {
+    primary: {
+      50: '#eff6ff',
+      500: '#3b82f6',
+      900: '#1e3a8a'
+    },
+    gray: {
+      50: '#f9fafb',
+      500: '#6b7280',
+      900: '#111827'
+    }
+  },
+  
+  fonts: {
+    sans: ['Inter', 'system-ui', 'sans-serif'],
+    mono: ['Fira Code', 'monospace']
+  },
+  
+  spacing: {
+    xs: '0.5rem',
+    sm: '1rem',
+    md: '1.5rem',
+    lg: '2rem',
+    xl: '3rem'
+  }
+}
+\`\`\`
+
+## Best Practices
+### 1. Module Selection
+**Choose only what you need:**
+- Start with \`@template/core\` and \`@template/settings\`
+- Add modules incrementally as features are needed
+- Consider bundle size impact
+
+## Troubleshooting
+### Common Issues
+#### 1. Module Import Errors
+**Problem:** \`Cannot resolve module '@template/ai'\`
+**Solution:**
+\`\`\`bash
+# Ensure workspace dependencies are installed
+npm install
+
+# Check package.json includes the module
+"dependencies": {
+  "@template/ai": "workspace:*"
+}
+
+# Rebuild if necessary
+npm run build
+\`\`\`
+
+## Next Steps
+1. **Explore the example apps** in the \`apps/\` directory
+2. **Read module-specific documentation** for detailed APIs
+3. **Join the community** for support and discussions
+4. **Contribute back** with improvements and bug fixes
+`;
 
         // --- ELEMENTS ---
         const landingPage = document.getElementById('landing-page');
