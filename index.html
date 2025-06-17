@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Template Project</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for body, Fira Code for code blocks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Custom Tailwind CSS configuration
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        // A new vibrant color theme
+                        'primary': { '50': '#f0f9ff', '100': '#e0f2fe', '200': '#bae6fd', '300': '#7dd3fc', '400': '#38bdf8', '500': '#0ea5e9', '600': '#0284c7', '700': '#0369a1', '800': '#075985', '900': '#0c4a6e' },
+                        'secondary': { '50': '#fdf2f8', '100': '#fce7f3', '200': '#fbcfe8', '300': '#f9a8d4', '400': '#f472b6', '500': '#ec4899', '600': '#db2777', '700': '#be185d', '800': '#9d174d', '900': '#831843' },
+                        'neutral': { '50': '#f8fafc', '100': '#f1f5f9', '200': '#e2e8f0', '300': '#cbd5e1', '400': '#94a3b8', '500': '#64748b', '600': '#475569', '700': '#334155', '800': '#1e293b', '900': '#0f172a' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Additional custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background-color: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background-color: #64748b; }
+        html { scroll-behavior: smooth; }
+        /* Simple transition for view switching */
+        .view { display: none; }
+        .view.active { display: block; }
+    </style>
+</head>
+<body class="bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 transition-colors duration-300">
+
+    <!-- Landing Page View -->
+    <div id="landing-page" class="view active">
+        <header class="bg-white dark:bg-neutral-950/50 shadow-sm">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-neutral-900 dark:text-white">Electron Template Project</h1>
+                <button id="theme-toggle-landing" class="p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                    <svg id="theme-toggle-dark-icon-landing" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon-landing" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 016.465 3.636l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM5 11a1 1 0 100-2H4a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </header>
+        <main class="container mx-auto px-6 py-12">
+            <div class="text-center">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-neutral-900 dark:text-white">A Modular System for Modern Desktop Apps</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-neutral-600 dark:text-neutral-400">Build consistent, professional, and feature-rich applications for Windows, macOS, and Linux with ease.</p>
+                <div class="mt-8 flex justify-center gap-4">
+                    <button id="show-usage-guide" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">View Usage Guide</button>
+                    <a href="#quick-start-readme" class="bg-secondary-600 hover:bg-secondary-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">Get Started</a>
+                </div>
+            </div>
+            <div id="readme-content" class="mt-16 max-w-4xl mx-auto">
+                <!-- README content will be injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Usage Guide View -->
+    <div id="usage-guide" class="view">
+        <div class="flex">
+            <!-- Sidebar Navigation -->
+            <aside class="fixed top-0 left-0 h-screen w-64 bg-neutral-50 dark:bg-neutral-950 border-r border-neutral-200 dark:border-neutral-800 p-5 overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                     <button id="back-to-landing" class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline">&larr; Back to Home</button>
+                    <button id="theme-toggle-usage" class="p-2 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                        <svg id="theme-toggle-dark-icon-usage" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon-usage" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 016.465 3.636l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM5 11a1 1 0 100-2H4a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+                <h2 class="text-lg font-bold text-neutral-900 dark:text-white mb-4">Usage Guide</h2>
+                <nav id="sidebar-nav" class="space-y-2">
+                    <!-- Navigation links will be dynamically populated here -->
+                </nav>
+            </aside>
+            <!-- Main Content -->
+            <main class="ml-64 p-8 lg:p-12 w-full">
+                <div id="usage-content-container" class="max-w-4xl mx-auto">
+                    <!-- Usage guide content will be injected here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- DATA ---
+        const readmeContent = `
+# Electron Template System
+A comprehensive, modular Electron application template system for building consistent, professional desktop applications with modern web technologies.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3+-blue.svg)](https://www.typescriptlang.org/)
+[![Electron](https://img.shields.io/badge/Electron-22+-green.svg)](https://www.electronjs.org/)
+[![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org/)
+
+## 🚀 Features
+### Core Framework
+- **🔷 TypeScript-first** - Complete type safety throughout the stack
+- **⚡ Modern Build System** - Vite + Electron Builder for fast development and optimized builds
+- **🎨 Design System** - Tailwind CSS with custom theme and dark mode support
+### Advanced Modules
+- **🤖 AI Integration** - Multi-provider support (OpenAI, Claude, Gemini, Ollama)
+- **🗄️ Database** - SQLite integration with migrations and backups
+- **🔍 Vector Search** - Local semantic search with LanceDB
+
+## 🚀 Quick Start
+### Using the CLI Generator (Recommended)
+\`\`\`bash
+# Create a new AI-powered application
+npx @template/create-app my-ai-app --template=ai-app
+\`\`\`
+
+## 🚢 Deployment
+### Automated Builds
+GitHub Actions automatically builds for all platforms when you push tags:
+\`\`\`bash
+git tag v1.0.0
+git push origin v1.0.0
+\`\`\`
+        `;
+
+        const usageGuideContent = `
+# Electron Template Usage Guide
+A comprehensive guide to using this modular Electron template system for building feature-rich desktop applications.
+
+## Quick Start
+### 1. Clone the Template
+\`\`\`bash
+git clone <your-template-repo>
+cd electron-template
+\`\`\`
+### 2. Install Dependencies
+\`\`\`bash
+npm install
+\`\`\`
+### 3. Choose Your Modules
+Edit \`package.json\` to include only the modules you need:
+\`\`\`json
+{
+  "dependencies": {
+    "@template/core": "workspace:*",
+    "@template/settings": "workspace:*",
+    "@template/ai": "workspace:*",
+    "@template/database": "workspace:*"
+  }
+}
+\`\`\`
+### 4. Start Development
+\`\`\`bash
+npm run dev
+\`\`\`
+Your Electron app will launch with the selected modules integrated.
+
+## Template Structure
+\`\`\`
+electron-template/
+├── packages/
+│   ├── core/
+│   └── settings/
+\`\`\`
+
+## Available Modules
+### Core Modules
+#### @template/core
+**Required for all applications**
+- Electron + React + TypeScript setup
+- Vite build system
+\`\`\`tsx
+import { App } from '@template/core'
+\`\`\`
+        `;
+
+        // --- ELEMENTS ---
+        const landingPage = document.getElementById('landing-page');
+        const usageGuidePage = document.getElementById('usage-guide');
+        const showUsageGuideBtn = document.getElementById('show-usage-guide');
+        const backToLandingBtn = document.getElementById('back-to-landing');
+
+        // --- PARSER ---
+        function parseMarkdown(md) {
+            let html = '';
+            const lines = md.trim().split('\n');
+            let inCodeBlock = false;
+            let lang = '';
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i];
+
+                if (line.startsWith('```')) {
+                    if (inCodeBlock) {
+                        html += `</code></pre></div>`;
+                        inCodeBlock = false;
+                    } else {
+                        inCodeBlock = true;
+                        lang = line.substring(3);
+                        html += `<div class="my-4 rounded-lg bg-neutral-800 dark:bg-neutral-950 border border-neutral-700 dark:border-neutral-800 overflow-hidden">
+                        <div class="text-xs text-neutral-400 bg-neutral-700 dark:bg-neutral-900 px-4 py-1.5 font-mono">${lang || 'code'}</div>
+                        <pre class="p-4 text-sm font-mono text-white overflow-x-auto"><code>`;
+                    }
+                } else if (inCodeBlock) {
+                    html += `${line.replace(/</g, '&lt;').replace(/>/g, '&gt;')}\n`;
+                } else if (line.startsWith('## ')) {
+                    const title = line.substring(3);
+                    const id = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') + "-readme";
+                    html += `<h2 id="${id}" class="text-3xl font-bold text-neutral-900 dark:text-white mt-12 mb-6 border-b border-neutral-300 dark:border-neutral-700 pb-3">${title}</h2>`;
+                } else if (line.startsWith('### ')) {
+                    html += `<h3 class="text-2xl font-semibold text-neutral-800 dark:text-neutral-200 mt-8 mb-4">${line.substring(4)}</h3>`;
+                } else if (line.startsWith('- ')) {
+                    html += '<ul class="list-disc list-inside space-y-2 my-4 pl-4">';
+                    while(i < lines.length && lines[i].startsWith('- ')){
+                       html += `<li class="text-neutral-700 dark:text-neutral-300">${lines[i].substring(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>`;
+                       i++;
+                    }
+                    html += '</ul>';
+                    i--;
+                } else if (line.startsWith('[![')) { // Badge support
+                     html += `<div class="flex gap-2 my-4">${line.replace(/\[!\[(.*?)\]\((.*?)\)\]\((.*?)\)/g, '<a href="$3" target="_blank"><img src="$2" alt="$1"></a>')}</div>`
+                }
+                 else if (line.trim() !== '') {
+                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-neutral-800 dark:text-neutral-200">$1</strong>');
+                    line = line.replace(/`(.*?)`/g, '<code class="font-mono text-sm bg-neutral-200 dark:bg-neutral-700 text-primary-600 dark:text-primary-400 rounded px-1 py-0.5">$1</code>');
+                    html += `<p class="my-4 leading-relaxed">${line}</p>`;
+                }
+            }
+            return html;
+        }
+
+        // --- USAGE GUIDE SETUP ---
+        function setupUsageGuide() {
+            const contentContainer = document.getElementById('usage-content-container');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            contentContainer.innerHTML = '';
+            sidebarNav.innerHTML = '';
+
+            let htmlContent = '';
+            const sections = usageGuideContent.trim().split('\n## ');
+
+            const headerAndFirstSection = sections[0].split('\n');
+            htmlContent += `<header class="mb-12"><h1 class="text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-4">${headerAndFirstSection[0].replace('# ', '')}</h1><p class="text-lg text-neutral-600 dark:text-neutral-400">${headerAndFirstSection.slice(1).join(' ')}</p></header>`;
+
+            for (let i = 1; i < sections.length; i++) {
+                const sectionContent = sections[i];
+                const lines = sectionContent.split('\n');
+                const title = lines[0].trim();
+                const id = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
+                htmlContent += `<section id="${id}" class="mb-12 scroll-mt-20">`;
+                htmlContent += `<h2 class="text-3xl font-bold text-neutral-900 dark:text-white mb-6 border-b border-neutral-200 dark:border-neutral-700 pb-2">${title}</h2>`;
+
+                const navLink = document.createElement('a');
+                navLink.href = `#${id}`;
+                navLink.textContent = title;
+                navLink.className = 'nav-link block font-medium text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 py-1';
+                sidebarNav.appendChild(navLink);
+
+                htmlContent += parseMarkdown(lines.slice(1).join('\n'));
+                htmlContent += `</section>`;
+            }
+            contentContainer.innerHTML = htmlContent;
+
+            // Active link highlighting on scroll
+            const allSections = contentContainer.querySelectorAll('section');
+            const navLinks = sidebarNav.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-primary-600', 'dark:text-primary-400', 'font-bold');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('text-primary-600', 'dark:text-primary-400', 'font-bold');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '0px 0px -75% 0px' });
+
+            allSections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+
+        // --- THEME TOGGLER ---
+        const setupThemeToggle = (buttonId, darkIconId, lightIconId) => {
+            const themeToggleBtn = document.getElementById(buttonId);
+            const themeToggleDarkIcon = document.getElementById(darkIconId);
+            const themeToggleLightIcon = document.getElementById(lightIconId);
+
+            const updateIcons = (isDark) => {
+                 if(isDark){
+                    themeToggleLightIcon.classList.remove('hidden');
+                    themeToggleDarkIcon.classList.add('hidden');
+                 } else {
+                    themeToggleDarkIcon.classList.remove('hidden');
+                    themeToggleLightIcon.classList.add('hidden');
+                 }
+            };
+
+            const isDark = localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.classList.toggle('dark', isDark);
+            updateIcons(isDark);
+            
+            themeToggleBtn.addEventListener('click', function() {
+                const isCurrentlyDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('color-theme', isCurrentlyDark ? 'dark' : 'light');
+                // Sync all toggles
+                updateIcons(isCurrentlyDark);
+                document.getElementById(darkIconId === 'theme-toggle-dark-icon-landing' ? 'theme-toggle-dark-icon-usage' : 'theme-toggle-dark-icon-landing').classList.toggle('hidden', isCurrentlyDark);
+                document.getElementById(lightIconId === 'theme-toggle-light-icon-landing' ? 'theme-toggle-light-icon-usage' : 'theme-toggle-light-icon-landing').classList.toggle('hidden', !isCurrentlyDark);
+
+            });
+        }
+        
+        setupThemeToggle('theme-toggle-landing', 'theme-toggle-dark-icon-landing', 'theme-toggle-light-icon-landing');
+        setupThemeToggle('theme-toggle-usage', 'theme-toggle-dark-icon-usage', 'theme-toggle-light-icon-usage');
+
+
+        // --- NAVIGATION ---
+        showUsageGuideBtn.addEventListener('click', () => {
+            landingPage.classList.remove('active');
+            usageGuidePage.classList.add('active');
+            window.scrollTo(0, 0);
+        });
+
+        backToLandingBtn.addEventListener('click', () => {
+            usageGuidePage.classList.remove('active');
+            landingPage.classList.add('active');
+             window.scrollTo(0, 0);
+        });
+
+        // --- INITIALIZATION ---
+        document.getElementById('readme-content').innerHTML = parseMarkdown(readmeContent);
+        setupUsageGuide();
+
+    });
+    </script>
+</body>
+</html>
+

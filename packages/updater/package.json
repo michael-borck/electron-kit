@@ -1,0 +1,39 @@
+{
+  "name": "@template/updater",
+  "version": "1.0.0",
+  "description": "Comprehensive auto-update system for Electron applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "electron",
+    "auto-update",
+    "updater",
+    "electron-updater",
+    "deployment",
+    "releases"
+  ],
+  "dependencies": {
+    "electron-updater": "^6.1.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "^4.4.7",
+    "framer-motion": "^10.16.16",
+    "semver": "^7.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@types/semver": "^7.5.6",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "electron": ">=22.0.0"
+  }
+}

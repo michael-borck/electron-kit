@@ -1,7 +1,0 @@
-/home/michael/projects/chatter-box/
-/home/michael/projects/critquie-quest/
-/home/michael/projects/curriculum-curator/
-/home/michael/projects/deep-talk/
-/home/michael/projects/insight-lens/
-/home/michael/projects/talk-buddy/
-/home/michael/projects/venture-lab/
