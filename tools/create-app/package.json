@@ -1,0 +1,51 @@
+{
+  "name": "@michaelborck/create-electron-kit",
+  "version": "1.0.1",
+  "description": "CLI tool to create Electron applications from modular templates",
+  "main": "dist/index.js",
+  "bin": {
+    "create-electron-kit": "./dist/index.js"
+  },
+  "files": [
+    "dist/**/*",
+    "templates/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "electron",
+    "template",
+    "cli",
+    "react",
+    "typescript",
+    "desktop"
+  ],
+  "author": "Michael Borck <michael@borck.com>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.0.0",
+    "inquirer": "^9.0.0",
+    "fs-extra": "^11.0.0",
+    "chalk": "^4.1.2",
+    "ora": "^6.3.1",
+    "validate-npm-package-name": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.0",
+    "@types/inquirer": "^9.0.0",
+    "@types/node": "^20.0.0",
+    "@types/validate-npm-package-name": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelborck/electron-kit.git",
+    "directory": "tools/create-app"
+  }
+}

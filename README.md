@@ -65,16 +65,16 @@ electron-template/
 
 ```bash
 # Create a new AI-powered application
-npx @template/create-app my-ai-app --template=ai-app
+npx @michaelborck/create-electron-kit my-ai-app --template=ai-app
 
 # Create a data analysis application
-npx @template/create-app my-data-app --template=data-app
+npx @michaelborck/create-electron-kit my-data-app --template=data-app
 
 # Create with all modules
-npx @template/create-app my-full-app --template=full
+npx @michaelborck/create-electron-kit my-full-app --template=full
 
 # Start with minimal setup
-npx @template/create-app my-basic-app --template=basic
+npx @michaelborck/create-electron-kit my-basic-app --template=basic
 ```
 
 ### Manual Setup
