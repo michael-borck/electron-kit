@@ -1,5 +1,9 @@
 # Electron Template System
 
+<!-- BADGES:START -->
+[![data-visualization](https://img.shields.io/badge/-data--visualization-blue?style=flat-square)](https://github.com/topics/data-visualization) [![electron](https://img.shields.io/badge/-electron-47848f?style=flat-square)](https://github.com/topics/electron) [![electron-builder](https://img.shields.io/badge/-electron--builder-blue?style=flat-square)](https://github.com/topics/electron-builder) [![notifications](https://img.shields.io/badge/-notifications-blue?style=flat-square)](https://github.com/topics/notifications) [![react](https://img.shields.io/badge/-react-61dafb?style=flat-square)](https://github.com/topics/react) [![sqlite](https://img.shields.io/badge/-sqlite-blue?style=flat-square)](https://github.com/topics/sqlite) [![tailwind-css](https://img.shields.io/badge/-tailwind--css-blue?style=flat-square)](https://github.com/topics/tailwind-css) [![typescript](https://img.shields.io/badge/-typescript-3178c6?style=flat-square)](https://github.com/topics/typescript) [![vector-search](https://img.shields.io/badge/-vector--search-blue?style=flat-square)](https://github.com/topics/vector-search) [![vite](https://img.shields.io/badge/-vite-blue?style=flat-square)](https://github.com/topics/vite)
+<!-- BADGES:END -->
+
 A comprehensive, modular Electron application template system for building consistent, professional desktop applications with modern web technologies.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
