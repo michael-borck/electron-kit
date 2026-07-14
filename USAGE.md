@@ -788,6 +788,29 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+### macOS Code Signing & Notarization
+
+The bundled workflow (`.github/workflows/build.yml`) signs and notarizes the
+macOS build when the following repository secrets are configured. Without them
+the build gracefully falls back to unsigned, so the template still builds out
+of the box.
+
+| Secret | Purpose |
+| --- | --- |
+| `CSC_LINK` | Base64-encoded Developer ID Application certificate (`.p12`) |
+| `CSC_KEY_PASSWORD` | Password for the `.p12` certificate |
+| `APPLE_ID` | Apple ID used for notarization |
+| `APPLE_APP_SPECIFIC_PASSWORD` | App-specific password for that Apple ID |
+| `APPLE_TEAM_ID` | Apple Developer Team ID |
+
+Signing uses electron-builder's `CSC_LINK` / `CSC_KEY_PASSWORD` env vars.
+Notarization is handled by the custom `afterSign` hook
+(`packages/core/scripts/notarize.js`), which reads `NOTARIZE_APPLE_ID`,
+`NOTARIZE_APPLE_PASSWORD`, and `NOTARIZE_APPLE_TEAM_ID` (mapped from the
+secrets above in the workflow). The `NOTARIZE_APPLE_*` names are deliberate —
+plain `APPLE_*` env vars would also trigger electron-builder's buggy built-in
+notarize wrapper, which is disabled via `"notarize": false` in the mac config.
+
 ### Auto-Updates Setup
 
 1. Configure electron-builder:
@@ -805,9 +828,12 @@ jobs:
     "win": {
       "publisherName": "Your Company"
     },
+    "afterSign": "scripts/notarize.js",
     "mac": {
       "hardenedRuntime": true,
-      "entitlements": "assets/entitlements.mac.plist"
+      "notarize": false,
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "assets/entitlements.mac.plist"
     }
   }
 }
